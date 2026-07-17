@@ -17,7 +17,7 @@ INSERT IGNORE INTO iglesias (id, nombre, activa) VALUES
 
 -- Usuario de ejemplo con rol junta.
 -- Genera el hash con:
--- node -e "const bcrypt=require('bcrypt'); const password='Admin123!'; bcrypt.hash(password, 10).then(hash => console.log(hash));"
+-- node -e "const bcrypt=require('bcryptjs'); const password='Admin123!'; bcrypt.hash(password, 10).then(hash => console.log(hash));"
 INSERT IGNORE INTO usuarios (id, nombre, email, password_hash, rol, iglesia_id)
 VALUES (
   1,

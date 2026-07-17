@@ -8,7 +8,7 @@ Aplicación web ligera para registrar personas interesadas en iglesias y hacer s
 
 - Backend: Node.js + Express
 - Base de datos: MySQL con `mysql2` y pool de conexiones
-- Auth: JWT + `bcrypt`
+- Auth: JWT + `bcryptjs`
 - Frontend: HTML/CSS/JavaScript vanilla servido por Express desde `public/`
 
 ## Comandos principales

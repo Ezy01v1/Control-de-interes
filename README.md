@@ -40,7 +40,7 @@ mysql -u <usuario> -p < server/db/seed.sql
 ## Generar hash de contraseña para un usuario de prueba
 
 ```bash
-node -e "const bcrypt=require('bcrypt'); const password='Admin123!'; bcrypt.hash(password, 10).then(hash => console.log(hash));"
+node -e "const bcrypt=require('bcryptjs'); const password='Admin123!'; bcrypt.hash(password, 10).then(hash => console.log(hash));"
 ```
 
 Luego reemplaza el valor del hash en `server/db/seed.sql` si deseas usar otra contraseña.
