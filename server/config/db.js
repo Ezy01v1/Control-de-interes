@@ -61,7 +61,7 @@ ensureDatabase()
     console.warn('No se pudo garantizar la base de datos:', error.message);
   });
 
-const pool = mysql.createPool({
+const poolConfig = {
   host: dbHost,
   user: dbUser,
   password: dbPassword,
@@ -70,6 +70,14 @@ const pool = mysql.createPool({
   connectionLimit: 10,
   queueLimit: 0,
   charset: 'utf8mb4'
-});
+};
+
+if (process.env.DB_SSL) {
+  poolConfig.ssl = {
+    rejectUnauthorized: false
+  };
+}
+
+const pool = mysql.createPool(poolConfig);
 
 module.exports = pool;
