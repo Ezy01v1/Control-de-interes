@@ -1,0 +1,32 @@
+{
+  "name": "iglesia-registro",
+  "version": "1.0.0",
+  "description": "Aplicación ligera para registrar personas interesadas en iglesias y darles seguimiento desde un panel de pastor/junta.",
+  "main": "server/server.js",
+  "scripts": {
+    "start": "node server/server.js",
+    "dev": "nodemon server/server.js",
+    "db:init": "node server/db/init.js",
+    "db:seed": "node server/db/seed-demo.js"
+  },
+  "keywords": [
+    "express",
+    "mysql",
+    "jwt",
+    "dashboard"
+  ],
+  "author": "GitHub Copilot",
+  "license": "MIT",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.2",
+    "express-rate-limit": "^7.4.0",
+    "express-validator": "^7.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "mysql2": "^3.1.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.4"
+  }
+}

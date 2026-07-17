@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard</title>
+  <link rel="stylesheet" href="/css/styles.css" />
+</head>
+<body>
+  <main class="container dashboard-wrapper">
+    <section class="card">
+      <div class="dashboard-header">
+        <div>
+          <h1>Panel de seguimiento</h1>
+          <p id="userLabel"></p>
+        </div>
+        <div class="actions">
+          <button id="exportBtn" class="secondary-btn">Exportar CSV</button>
+          <button id="logoutBtn" class="ghost-btn">Cerrar sesión</button>
+        </div>
+      </div>
+
+      <div class="filters">
+        <label>
+          Filtrar por iglesia
+          <select id="iglesiaFilter"></select>
+        </label>
+
+        <label>
+          Desde
+          <input type="date" id="desde" />
+        </label>
+
+        <label>
+          Hasta
+          <input type="date" id="hasta" />
+        </label>
+
+        <button id="applyFiltersBtn" class="primary-btn">Aplicar filtros</button>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Nombre</th>
+              <th>Correo</th>
+              <th>Código postal</th>
+              <th>Edad</th>
+              <th>Iglesia</th>
+              <th>Evento</th>
+              <th>Fecha</th>
+            </tr>
+          </thead>
+          <tbody id="personasTableBody"></tbody>
+        </table>
+      </div>
+      <p id="mensaje" class="mensaje" aria-live="polite"></p>
+    </section>
+  </main>
+
+  <script src="/js/dashboard.js"></script>
+</body>
+</html>

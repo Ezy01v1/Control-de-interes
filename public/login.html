@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login del panel</title>
+  <link rel="stylesheet" href="/css/styles.css" />
+</head>
+<body>
+  <main class="container compact">
+    <section class="card">
+      <h1>Acceso al panel</h1>
+      <form id="loginForm" class="form-grid">
+        <label>
+          Correo electrónico
+          <input type="email" name="email" required />
+        </label>
+
+        <label>
+          Contraseña
+          <input type="password" name="password" required />
+        </label>
+
+        <button type="submit" class="primary-btn">Iniciar sesión</button>
+      </form>
+
+      <p id="mensaje" class="mensaje" aria-live="polite"></p>
+    </section>
+  </main>
+
+  <script src="/js/login.js"></script>
+</body>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Registro Iglesia</title>
+  <link rel="stylesheet" href="/css/styles.css" />
+</head>
+<body>
+  <main class="container">
+    <section class="card">
+      <header class="card-header">
+        <img src="/img/logo.png" alt="North Star" class="brand-mark" />
+        <div>
+          <h1>Registro de interés</h1>
+          <p class="subtitle">Gracias por visitarnos. Completa tus datos para que el equipo pueda darte seguimiento.</p>
+        </div>
+      </header>
+ 
+      <div class="share-box">
+        <div>
+          <strong>Link para compartir</strong>
+          <p id="shareLink" class="share-link"></p>
+        </div>
+        <button type="button" id="copyLinkBtn" class="secondary-btn">Copiar link</button>
+      </div>
+ 
+      <div class="qr-box">
+        <canvas id="qrCode" width="180" height="180"></canvas>
+        <p class="qr-caption">Escanea para abrir el formulario desde tu celular</p>
+      </div>
+ 
+      <form id="registroForm" class="form-grid">
+        <label>
+          Nombre completo
+          <input type="text" name="nombre_completo" required />
+        </label>
+ 
+        <label>
+          Correo electrónico
+          <input type="email" name="correo" required />
+        </label>
+ 
+        <label>
+          Código postal
+          <input type="text" name="codigo_postal" required />
+        </label>
+ 
+        <label>
+          Edad
+          <input type="number" name="edad" min="1" max="120" required />
+        </label>
+ 
+        <label>
+          Iglesia
+          <select name="iglesia_id" id="iglesiaSelect" required></select>
+        </label>
+ 
+        <label class="full-width">
+          ¿En qué evento nos conociste? (opcional)
+          <textarea name="evento_descripcion" rows="4" placeholder="Ej. Jornada de puertas abiertas, evento comunitario..."></textarea>
+        </label>
+ 
+        <button type="submit" class="primary-btn">Enviar registro</button>
+ 
+        <p class="privacy-note">🔒 Tus datos son confidenciales y solo se usan para el seguimiento pastoral de tu iglesia.</p>
+      </form>
+ 
+      <p id="mensaje" class="mensaje" aria-live="polite"></p>
+    </section>
+  </main>
+ 
+  <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.4/build/qrcode.min.js"></script>
+  <script src="/js/registro.js"></script>
+</body>
+</html>

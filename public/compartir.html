@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Compartir registro</title>
+  <link rel="stylesheet" href="/css/styles.css" />
+</head>
+<body>
+  <main class="container compact">
+    <section class="card share-hero">
+      <h1>Compartir formulario público</h1>
+      <p>Usa este enlace o escanea el QR para abrir el formulario desde cualquier celular.</p>
+
+      <div class="share-box">
+        <div>
+          <strong>Link público</strong>
+          <p id="shareLink" class="share-link"></p>
+        </div>
+        <button type="button" id="copyLinkBtn" class="secondary-btn">Copiar link</button>
+      </div>
+
+      <div class="qr-box">
+        <canvas id="qrCode" width="220" height="220"></canvas>
+      </div>
+
+      <p id="mensaje" class="mensaje" aria-live="polite"></p>
+    </section>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.4/build/qrcode.min.js"></script>
+  <script src="/js/share.js"></script>
+</body>
+</html>
