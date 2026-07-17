@@ -8,6 +8,20 @@ const userLabel = document.querySelector('#userLabel');
 const exportBtn = document.querySelector('#exportBtn');
 const logoutBtn = document.querySelector('#logoutBtn');
 const applyFiltersBtn = document.querySelector('#applyFiltersBtn');
+const shareLink = document.querySelector('#shareLink');
+const copyLinkBtn = document.querySelector('#copyLinkBtn');
+
+const shareUrl = window.__APP_CONFIG__?.registrationUrl || `${window.location.origin}/registro.html`;
+shareLink.textContent = shareUrl;
+
+copyLinkBtn.addEventListener('click', async () => {
+  try {
+    await navigator.clipboard.writeText(shareUrl);
+    mensaje.textContent = 'Link copiado.';
+  } catch (error) {
+    mensaje.textContent = 'No se pudo copiar el link automáticamente.';
+  }
+});
 
 function parseJwt(tokenValue) {
   try {

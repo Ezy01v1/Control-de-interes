@@ -6,6 +6,12 @@ const personasRoutes = require('./routes/personas.routes');
 
 const app = express();
 
+app.get('/config.js', (req, res) => {
+  const registrationUrl = process.env.PUBLIC_REGISTRATION_URL || `https://${req.get('host') || 'control-de-interes.onrender.com'}/registro.html`;
+
+  res.type('application/javascript').send(`window.__APP_CONFIG__ = ${JSON.stringify({ registrationUrl })};`);
+});
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, '..', 'public')));

@@ -3,19 +3,10 @@ const iglesiaSelect = document.querySelector('#iglesiaSelect');
 const mensaje = document.querySelector('#mensaje');
 const shareLink = document.querySelector('#shareLink');
 const copyLinkBtn = document.querySelector('#copyLinkBtn');
-const qrCodeCanvas = document.querySelector('#qrCode');
 
-const shareUrl = `${window.location.origin}${window.location.pathname}`;
+const shareUrl = window.__APP_CONFIG__?.registrationUrl || `${window.location.origin}/registro.html`;
 
 shareLink.textContent = shareUrl;
-
-if (window.QRCode) {
-  QRCode.toCanvas(qrCodeCanvas, shareUrl, { width: 180, margin: 1 }, (error) => {
-    if (error) {
-      console.error(error);
-    }
-  });
-}
 
 copyLinkBtn.addEventListener('click', async () => {
   try {

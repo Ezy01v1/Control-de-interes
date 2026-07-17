@@ -1,18 +1,9 @@
 const shareLink = document.querySelector('#shareLink');
 const copyLinkBtn = document.querySelector('#copyLinkBtn');
-const qrCodeCanvas = document.querySelector('#qrCode');
 const mensaje = document.querySelector('#mensaje');
 
-const shareUrl = `${window.location.origin}/registro.html`;
+const shareUrl = window.__APP_CONFIG__?.registrationUrl || `${window.location.origin}/registro.html`;
 shareLink.textContent = shareUrl;
-
-if (window.QRCode) {
-  QRCode.toCanvas(qrCodeCanvas, shareUrl, { width: 220, margin: 1 }, (error) => {
-    if (error) {
-      console.error(error);
-    }
-  });
-}
 
 copyLinkBtn.addEventListener('click', async () => {
   try {

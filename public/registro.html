@@ -22,12 +22,10 @@
           <strong>Link para compartir</strong>
           <p id="shareLink" class="share-link"></p>
         </div>
-        <button type="button" id="copyLinkBtn" class="secondary-btn">Copiar link</button>
-      </div>
- 
-      <div class="qr-box">
-        <canvas id="qrCode" width="180" height="180"></canvas>
-        <p class="qr-caption">Escanea para abrir el formulario desde tu celular</p>
+        <div class="share-actions">
+          <button type="button" id="copyLinkBtn" class="secondary-btn">Copiar link</button>
+          <a href="/qr.html" class="secondary-btn view-qr-btn" target="_blank" rel="noopener noreferrer">Ver código QR</a>
+        </div>
       </div>
  
       <form id="registroForm" class="form-grid">
@@ -70,7 +68,7 @@
     </section>
   </main>
  
-  <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.4/build/qrcode.min.js"></script>
+  <script src="/config.js"></script>
   <script src="/js/registro.js"></script>
 </body>
 </html>

@@ -17,18 +17,17 @@
           <strong>Link público</strong>
           <p id="shareLink" class="share-link"></p>
         </div>
-        <button type="button" id="copyLinkBtn" class="secondary-btn">Copiar link</button>
-      </div>
-
-      <div class="qr-box">
-        <canvas id="qrCode" width="220" height="220"></canvas>
+        <div class="share-actions">
+          <button type="button" id="copyLinkBtn" class="secondary-btn">Copiar link</button>
+          <a href="/qr.html" class="secondary-btn view-qr-btn" target="_blank" rel="noopener noreferrer">Ver código QR</a>
+        </div>
       </div>
 
       <p id="mensaje" class="mensaje" aria-live="polite"></p>
     </section>
   </main>
 
-  <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.4/build/qrcode.min.js"></script>
+  <script src="/config.js"></script>
   <script src="/js/share.js"></script>
 </body>
 </html>
