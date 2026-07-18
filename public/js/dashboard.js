@@ -1,6 +1,5 @@
 const token = sessionStorage.getItem('jwt');
 const tableBody = document.querySelector('#personasTableBody');
-const iglesiaFilter = document.querySelector('#iglesiaFilter');
 const desde = document.querySelector('#desde');
 const hasta = document.querySelector('#hasta');
 const mensaje = document.querySelector('#mensaje');
@@ -34,7 +33,7 @@ function parseJwt(tokenValue) {
 
 function renderRows(rows) {
   if (!rows.length) {
-    tableBody.innerHTML = '<tr><td colspan="7">No hay registros para los filtros seleccionados.</td></tr>';
+    tableBody.innerHTML = '<tr><td colspan="6">No hay registros para los filtros seleccionados.</td></tr>';
     return;
   }
 
@@ -44,7 +43,6 @@ function renderRows(rows) {
       <td>${row.correo}</td>
       <td>${row.codigo_postal}</td>
       <td>${row.edad}</td>
-      <td>${row.iglesia_nombre}</td>
       <td>${row.evento_descripcion || '-'}</td>
       <td>${new Date(row.fecha_registro).toLocaleString('es-MX')}</td>
     </tr>
@@ -53,7 +51,6 @@ function renderRows(rows) {
 
 async function fetchPersonas() {
   const params = new URLSearchParams();
-  if (iglesiaFilter.value) params.set('iglesia_id', iglesiaFilter.value);
   if (desde.value) params.set('desde', desde.value);
   if (hasta.value) params.set('hasta', hasta.value);
 
@@ -74,17 +71,6 @@ async function fetchPersonas() {
   }
 }
 
-async function cargarIglesias() {
-  try {
-    const response = await fetch('/api/iglesias');
-    const iglesias = await response.json();
-
-    iglesiaFilter.innerHTML = '<option value="">Todas</option>' + iglesias.map((iglesia) => `<option value="${iglesia.id}">${iglesia.nombre}</option>`).join('');
-  } catch (error) {
-    mensaje.textContent = 'No se pudieron cargar las iglesias para filtrar.';
-  }
-}
-
 if (!token) {
   window.location.href = '/login.html';
 } else {
@@ -95,8 +81,7 @@ if (!token) {
     window.location.href = '/login.html';
   }
 
-  userLabel.textContent = `Rol: ${payload.rol} · Iglesia: ${payload.iglesia_id || 'Nacional'}`;
-  cargarIglesias();
+  userLabel.textContent = payload.nombre || payload.email || 'Usuario';
   fetchPersonas();
 }
 
@@ -104,7 +89,6 @@ applyFiltersBtn.addEventListener('click', fetchPersonas);
 
 exportBtn.addEventListener('click', () => {
   const params = new URLSearchParams();
-  if (iglesiaFilter.value) params.set('iglesia_id', iglesiaFilter.value);
   if (desde.value) params.set('desde', desde.value);
   if (hasta.value) params.set('hasta', hasta.value);
   window.location.href = `/api/personas/export?${params.toString()}`;

@@ -1,5 +1,4 @@
 const form = document.querySelector('#registroForm');
-const iglesiaSelect = document.querySelector('#iglesiaSelect');
 const mensaje = document.querySelector('#mensaje');
 const shareLink = document.querySelector('#shareLink');
 const copyLinkBtn = document.querySelector('#copyLinkBtn');
@@ -17,25 +16,12 @@ copyLinkBtn.addEventListener('click', async () => {
   }
 });
 
-async function cargarIglesias() {
-  try {
-    const response = await fetch('/api/iglesias');
-    const iglesias = await response.json();
-
-    iglesiaSelect.innerHTML = '<option value="">Selecciona una iglesia</option>' +
-      iglesias.map((iglesia) => `<option value="${iglesia.id}">${iglesia.nombre}</option>`).join('');
-  } catch (error) {
-    mensaje.textContent = 'No se pudieron cargar las iglesias en este momento.';
-  }
-}
-
 form.addEventListener('submit', async (event) => {
   event.preventDefault();
   mensaje.textContent = '';
 
   const payload = Object.fromEntries(new FormData(form).entries());
   payload.edad = Number(payload.edad);
-  payload.iglesia_id = Number(payload.iglesia_id);
 
   try {
     const response = await fetch('/api/registro', {
@@ -56,5 +42,3 @@ form.addEventListener('submit', async (event) => {
     mensaje.textContent = error.message;
   }
 });
-
-cargarIglesias();

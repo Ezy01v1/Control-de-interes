@@ -18,17 +18,6 @@ function authenticateToken(req, res, next) {
   }
 }
 
-function authorizeRoles(...allowedRoles) {
-  return (req, res, next) => {
-    if (!req.user || !allowedRoles.includes(req.user.rol)) {
-      return res.status(403).json({ message: 'No tienes permisos para realizar esta acción.' });
-    }
-
-    return next();
-  };
-}
-
 module.exports = {
-  authenticateToken,
-  authorizeRoles
+  authenticateToken
 };

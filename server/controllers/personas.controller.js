@@ -5,19 +5,9 @@ function escapeCsv(value) {
   return `"${stringValue.replace(/"/g, '""')}"`;
 }
 
-function buildPersonasQuery(user, filters) {
+function buildPersonasQuery(filters) {
   const conditions = [];
   const values = [];
-
-  if (user.rol === 'pastor') {
-    conditions.push('p.iglesia_id = ?');
-    values.push(user.iglesia_id);
-  }
-
-  if (filters.iglesia_id) {
-    conditions.push('p.iglesia_id = ?');
-    values.push(Number(filters.iglesia_id));
-  }
 
   if (filters.desde) {
     conditions.push('DATE(p.fecha_registro) >= DATE(?)');
@@ -30,9 +20,8 @@ function buildPersonasQuery(user, filters) {
   }
 
   let query = `
-    SELECT p.id, p.nombre_completo, p.correo, p.codigo_postal, p.edad, p.evento_descripcion, p.fecha_registro, i.nombre AS iglesia_nombre
+    SELECT p.id, p.nombre_completo, p.correo, p.codigo_postal, p.edad, p.evento_descripcion, p.fecha_registro
     FROM personas p
-    JOIN iglesias i ON i.id = p.iglesia_id
   `;
 
   if (conditions.length) {
@@ -45,10 +34,10 @@ function buildPersonasQuery(user, filters) {
 }
 
 async function getPersonas(req, res) {
-  const { desde, hasta, iglesia_id } = req.query;
+  const { desde, hasta } = req.query;
 
   try {
-    const { query, values } = buildPersonasQuery(req.user, { desde, hasta, iglesia_id });
+    const { query, values } = buildPersonasQuery({ desde, hasta });
     const [rows] = await pool.execute(query, values);
 
     return res.status(200).json(rows);
@@ -59,10 +48,10 @@ async function getPersonas(req, res) {
 }
 
 async function exportPersonas(req, res) {
-  const { desde, hasta, iglesia_id } = req.query;
+  const { desde, hasta } = req.query;
 
   try {
-    const { query, values } = buildPersonasQuery(req.user, { desde, hasta, iglesia_id });
+    const { query, values } = buildPersonasQuery({ desde, hasta });
     const [rows] = await pool.execute(query, values);
 
     const header = [
@@ -71,7 +60,6 @@ async function exportPersonas(req, res) {
       'correo',
       'codigo_postal',
       'edad',
-      'iglesia',
       'evento_descripcion',
       'fecha_registro'
     ];
@@ -85,7 +73,6 @@ async function exportPersonas(req, res) {
         row.correo,
         row.codigo_postal,
         row.edad,
-        row.iglesia_nombre,
         row.evento_descripcion,
         row.fecha_registro
       ].map(escapeCsv).join(','));

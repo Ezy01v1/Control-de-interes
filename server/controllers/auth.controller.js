@@ -11,7 +11,7 @@ async function login(req, res) {
 
   try {
     const [rows] = await pool.execute(
-      'SELECT id, nombre, email, password_hash, rol, iglesia_id FROM usuarios WHERE email = ?',
+      'SELECT id, nombre, email, password_hash FROM usuarios WHERE email = ?',
       [email.trim().toLowerCase()]
     );
 
@@ -30,9 +30,7 @@ async function login(req, res) {
       {
         id: usuario.id,
         nombre: usuario.nombre,
-        email: usuario.email,
-        rol: usuario.rol,
-        iglesia_id: usuario.iglesia_id
+        email: usuario.email
       },
       process.env.JWT_SECRET || 'dev_secret',
       { expiresIn: '8h' }
@@ -44,9 +42,7 @@ async function login(req, res) {
       usuario: {
         id: usuario.id,
         nombre: usuario.nombre,
-        email: usuario.email,
-        rol: usuario.rol,
-        iglesia_id: usuario.iglesia_id
+        email: usuario.email
       }
     });
   } catch (error) {

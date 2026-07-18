@@ -15,17 +15,15 @@ INSERT IGNORE INTO iglesias (id, nombre, activa) VALUES
 (12, 'Iglesia 12', TRUE),
 (13, 'Iglesia 13', TRUE);
 
--- Usuario de ejemplo con rol junta.
+-- Usuario de ejemplo para el panel consolidado.
 -- Genera el hash con:
 -- node -e "const bcrypt=require('bcryptjs'); const password='Admin123!'; bcrypt.hash(password, 10).then(hash => console.log(hash));"
-INSERT IGNORE INTO usuarios (id, nombre, email, password_hash, rol, iglesia_id)
+INSERT IGNORE INTO usuarios (id, nombre, email, password_hash)
 VALUES (
   1,
   'Junta Demo',
   'junta@iglesia.local',
-  '$2b$10$Qn2vXb1X1jY1wP7u6G7gouKJqXEs4lD7p9L6OzQ5WzvO2Gq6F6Ae.',
-  'junta',
-  NULL
+  '$2b$10$Qn2vXb1X1jY1wP7u6G7gouKJqXEs4lD7p9L6OzQ5WzvO2Gq6F6Ae.'
 );
 
 

@@ -10,10 +10,7 @@ CREATE TABLE IF NOT EXISTS usuarios (
   nombre VARCHAR(150) NOT NULL,
   email VARCHAR(150) UNIQUE NOT NULL,
   password_hash VARCHAR(255) NOT NULL,
-  rol ENUM('pastor', 'junta') NOT NULL,
-  iglesia_id INT NULL,
-  creado_en TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  FOREIGN KEY (iglesia_id) REFERENCES iglesias(id)
+  creado_en TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE IF NOT EXISTS personas (
@@ -22,10 +19,6 @@ CREATE TABLE IF NOT EXISTS personas (
   correo VARCHAR(150) NOT NULL,
   codigo_postal VARCHAR(20) NOT NULL,
   edad INT NOT NULL,
-  iglesia_id INT NOT NULL,
   evento_descripcion VARCHAR(255) NULL,
-  fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  FOREIGN KEY (iglesia_id) REFERENCES iglesias(id)
+  fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
-
-CREATE INDEX idx_personas_iglesia ON personas(iglesia_id);

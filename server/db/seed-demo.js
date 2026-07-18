@@ -38,8 +38,8 @@ async function main() {
     `);
 
     await pool.query(`
-      INSERT IGNORE INTO usuarios (id, nombre, email, password_hash, rol, iglesia_id)
-      VALUES (1, 'Junta Demo', 'junta@iglesia.local', '$2b$10$Qn2vXb1X1jY1wP7u6G7gouKJqXEs4lD7p9L6OzQ5WzvO2Gq6F6Ae.', 'junta', NULL)
+      INSERT IGNORE INTO usuarios (id, nombre, email, password_hash)
+      VALUES (1, 'Junta Demo', 'junta@iglesia.local', '$2b$10$Qn2vXb1X1jY1wP7u6G7gouKJqXEs4lD7p9L6OzQ5WzvO2Gq6F6Ae.')
     `);
 
     const [countIglesias] = await pool.query('SELECT COUNT(*) AS total FROM iglesias');

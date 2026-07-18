@@ -1,11 +1,6 @@
 const { body, validationResult } = require('express-validator');
 const pool = require('../config/db');
 
-const iglesiasDisponibles = Array.from({ length: 13 }, (_, index) => ({
-  id: index + 1,
-  nombre: `Iglesia ${index + 1}`
-}));
-
 function validateRegistro(req, res, next) {
   const errors = validationResult(req);
 
@@ -20,16 +15,11 @@ const registroRules = [
   body('nombre_completo').trim().notEmpty().withMessage('El nombre completo es obligatorio.'),
   body('correo').isEmail().withMessage('El correo no tiene un formato válido.'),
   body('codigo_postal').trim().notEmpty().withMessage('El código postal es obligatorio.'),
-  body('edad').isInt({ min: 1, max: 120 }).withMessage('La edad debe estar entre 1 y 120 años.'),
-  body('iglesia_id').isInt({ min: 1, max: 13 }).withMessage('La iglesia debe ser una de las 13 disponibles.')
+  body('edad').isInt({ min: 1, max: 120 }).withMessage('La edad debe estar entre 1 y 120 años.')
 ];
 
-async function getIglesiasPublicas(req, res) {
-  return res.status(200).json(iglesiasDisponibles);
-}
-
 async function registrarPersona(req, res) {
-  const { nombre_completo, correo, codigo_postal, edad, iglesia_id, evento_descripcion } = req.body;
+  const { nombre_completo, correo, codigo_postal, edad, evento_descripcion } = req.body;
 
   const nombre = String(nombre_completo || '').trim();
   const correoNormalizado = String(correo || '').trim().toLowerCase();
@@ -54,15 +44,11 @@ async function registrarPersona(req, res) {
     return res.status(400).json({ message: 'La edad debe estar entre 1 y 120 años.' });
   }
 
-  if (!Number.isInteger(Number(iglesia_id)) || Number(iglesia_id) < 1 || Number(iglesia_id) > 13) {
-    return res.status(400).json({ message: 'La iglesia debe ser una de las 13 disponibles.' });
-  }
-
   try {
     await pool.execute(
-      `INSERT INTO personas (nombre_completo, correo, codigo_postal, edad, iglesia_id, evento_descripcion)
-       VALUES (?, ?, ?, ?, ?, ?)`,
-      [nombre, correoNormalizado, codigoPostal, edadNumerica, Number(iglesia_id), descripcion || null]
+      `INSERT INTO personas (nombre_completo, correo, codigo_postal, edad, evento_descripcion)
+       VALUES (?, ?, ?, ?, ?)`,
+      [nombre, correoNormalizado, codigoPostal, edadNumerica, descripcion || null]
     );
 
     return res.status(201).json({ message: '¡Gracias, tu información fue registrada!' });
@@ -75,6 +61,5 @@ async function registrarPersona(req, res) {
 module.exports = {
   registroRules,
   validateRegistro,
-  getIglesiasPublicas,
   registrarPersona
 };
