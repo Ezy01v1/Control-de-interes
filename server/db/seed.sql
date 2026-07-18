@@ -27,3 +27,6 @@ VALUES (
   'junta',
   NULL
 );
+
+
+SELECT * FROM iglesias LIMIT 1;
