@@ -9,6 +9,8 @@ const dbPort = Number(process.env.DB_PORT) || 3306;
 const dbUser = process.env.DB_USER || 'root';
 const dbPassword = process.env.DB_PASSWORD || '';
 const dbName = process.env.DB_NAME || 'iglesia_registro';
+const useSsl = process.env.DB_SSL === 'true' || process.env.DB_SSL === '1';
+const sslConfig = useSsl ? { rejectUnauthorized: false } : undefined;
 const newPassword = process.argv[2];
 
 if (!newPassword) {
@@ -27,14 +29,22 @@ async function main() {
     waitForConnections: true,
     connectionLimit: 1,
     queueLimit: 0,
-    connectTimeout: 20000
+    connectTimeout: 20000,
+    ...(sslConfig ? { ssl: sslConfig } : {})
   });
 
   try {
     const passwordHash = await bcrypt.hash(newPassword, 10);
+    const [rows] = await pool.execute('SELECT id FROM usuarios ORDER BY id LIMIT 1');
+
+    if (!rows || rows.length === 0) {
+      console.error('No se encontró ningún usuario en la tabla usuarios.');
+      process.exit(1);
+    }
+
     const [result] = await pool.execute(
-      'UPDATE usuarios SET password_hash = ? WHERE id = (SELECT id FROM usuarios ORDER BY id LIMIT 1)',
-      [passwordHash]
+      'UPDATE usuarios SET password_hash = ? WHERE id = ?',
+      [passwordHash, rows[0].id]
     );
 
     if (result.affectedRows === 0) {
