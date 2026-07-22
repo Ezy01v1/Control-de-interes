@@ -184,6 +184,21 @@ textarea { resize: vertical; }
   color: var(--success);
 }
 
+.text-link-row {
+  margin-top: 14px;
+  text-align: center;
+}
+
+.text-link-row a {
+  color: var(--blue);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.text-link-row a:hover {
+  text-decoration: underline;
+}
+
 .share-box {
   display: flex;
   flex-wrap: wrap;

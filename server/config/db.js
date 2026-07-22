@@ -56,6 +56,8 @@ async function ensureSchema() {
 
     const schemaSql = fs.readFileSync(path.join(__dirname, '..', 'db', 'schema.sql'), 'utf8');
     await connection.query(schemaSql);
+    await connection.query('ALTER TABLE usuarios ADD COLUMN IF NOT EXISTS reset_token VARCHAR(255) NULL');
+    await connection.query('ALTER TABLE usuarios ADD COLUMN IF NOT EXISTS reset_token_expira TIMESTAMP NULL');
     console.log('Esquema inicializado correctamente.');
   } catch (error) {
     console.warn('No se pudo garantizar el esquema:', error.message);

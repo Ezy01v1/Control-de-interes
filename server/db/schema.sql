@@ -10,6 +10,8 @@ CREATE TABLE IF NOT EXISTS usuarios (
   nombre VARCHAR(150) NOT NULL,
   email VARCHAR(150) UNIQUE NOT NULL,
   password_hash VARCHAR(255) NOT NULL,
+  reset_token VARCHAR(255) NULL,
+  reset_token_expira TIMESTAMP NULL,
   creado_en TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 

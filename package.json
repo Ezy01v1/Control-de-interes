@@ -25,7 +25,8 @@
     "express-validator": "^7.1.0",
     "jsonwebtoken": "^9.0.2",
     "mysql2": "^3.1.1",
-    "qrcode": "^1.5.4"
+    "qrcode": "^1.5.4",
+    "resend": "^4.0.2"
   },
   "devDependencies": {
     "nodemon": "^3.1.4"
