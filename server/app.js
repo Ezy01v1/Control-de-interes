@@ -41,6 +41,7 @@ app.get('/api/qr', async (req, res) => {
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use('/img', express.static(path.join(__dirname, '..', 'img')));
 app.use(express.static(path.join(__dirname, '..', 'public')));
 
 app.use('/api/auth', authRoutes);
