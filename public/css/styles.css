@@ -80,7 +80,7 @@ body::before {
 }
 
 .brand-mark {
-  width: 42px;
+  width: 120px;
   height: auto;
   flex-shrink: 0;
   margin-top: 6px;
