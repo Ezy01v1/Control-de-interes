@@ -87,11 +87,35 @@ if (!token) {
 
 applyFiltersBtn.addEventListener('click', fetchPersonas);
 
-exportBtn.addEventListener('click', () => {
+exportBtn.addEventListener('click', async () => {
   const params = new URLSearchParams();
   if (desde.value) params.set('desde', desde.value);
   if (hasta.value) params.set('hasta', hasta.value);
-  window.location.href = `/api/personas/export?${params.toString()}`;
+
+  try {
+    const response = await fetch(`/api/personas/export?${params.toString()}`, {
+      headers: { Authorization: `Bearer ${token}` }
+    });
+
+    if (!response.ok) {
+      const data = await response.json();
+      throw new Error(data.message || 'No se pudo exportar el PDF.');
+    }
+
+    const blob = await response.blob();
+    const downloadUrl = URL.createObjectURL(blob);
+    const downloadLink = document.createElement('a');
+    const generatedDate = new Date().toISOString().slice(0, 10);
+
+    downloadLink.href = downloadUrl;
+    downloadLink.download = `registro-personas-${generatedDate}.pdf`;
+    document.body.appendChild(downloadLink);
+    downloadLink.click();
+    downloadLink.remove();
+    URL.revokeObjectURL(downloadUrl);
+  } catch (error) {
+    mensaje.textContent = error.message;
+  }
 });
 
 logoutBtn.addEventListener('click', () => {
